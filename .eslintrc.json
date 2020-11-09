@@ -20,9 +20,9 @@
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "max-lines": ["warn", { "max": 350 }],
-        "max-statements": ["warn", 14, { "ignoreTopLevelFunctions": true }],
-        "max-lines-per-function": ["warn", { "max": 80, "skipComments": true }],
+        "max-lines": ["warn", { "max": 400 }],
+        "max-statements": ["warn", 28, { "ignoreTopLevelFunctions": true }],
+        "max-lines-per-function": ["warn", { "max": 120, "skipComments": true }],
         "react/jsx-fragments": ["warn", "syntax"],
         "react/jsx-filename-extension": "off"
     },
