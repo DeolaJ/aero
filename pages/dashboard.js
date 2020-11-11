@@ -1,9 +1,8 @@
 import Head from 'next/head';
-import Router from 'next/router';
+// import Router from 'next/router';
 import { useAuthState } from '../src/auth/index';
-import Nav from '../src/components/layout/nav';
 import UserContent from '../src/components/layout/user-content';
-import Footer from '../src/components/layout/footer';
+import Body from '../src/components/layout/body';
 
 const Dashboard = () => {
   const { user } = useAuthState;
@@ -18,13 +17,11 @@ const Dashboard = () => {
         <title>User Dashboard</title>
       </Head>
 
-      <main>
-        <Nav />
+      <Body>
         <UserContent
           user={user}
         />
-      </main>
-      <Footer />
+      </Body>
     </>
   );
 };

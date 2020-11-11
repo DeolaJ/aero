@@ -8,6 +8,8 @@ import HorList from '../partials/horizontal-list';
 const CounterValue = styled.p`
   border: 1px solid #C4C4C4;
   padding: 3px;
+  margin-top: 0;
+  margin-bottom: 0;
   border-radius: 4px;
 `;
 
@@ -15,10 +17,10 @@ const CounterButton = styled(ButtonIcon)`
   border: 1px solid #C4C4C4;
   padding: 3px;
   border-radius: 4px;
-`;
 
-const CounterLabel = styled.p`
-  margin: 0;
+  img {
+    width: 10px;
+  }
 `;
 
 const Counter = ({
@@ -36,15 +38,12 @@ const Counter = ({
 
   return (
     <HorList spacing={18}>
-      <CounterLabel>
-        Passengers
-      </CounterLabel>
       <HorList spacing={8}>
         <CounterButton
           disabled={countValue <= 0}
           onClick={() => setCountValue((oldCount) => (oldCount - 1))}
         >
-          <img src="" alt="increment option" />
+          <img src="/images/chevron-left.svg" alt="increment option" />
         </CounterButton>
         <CounterValue>
           {countValue}
@@ -52,7 +51,7 @@ const Counter = ({
         <CounterButton
           onClick={() => setCountValue((oldCount) => (oldCount + 1))}
         >
-          <img src="" alt="increment option" />
+          <img src="/images/chevron-right.svg" alt="increment option" />
         </CounterButton>
       </HorList>
     </HorList>

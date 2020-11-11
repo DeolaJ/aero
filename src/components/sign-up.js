@@ -72,7 +72,7 @@ const UserSignUpSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const SignupForm = ({ setMode }) => {
+const SignupForm = ({ setMode, type, closeModal }) => {
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -84,156 +84,311 @@ const SignupForm = ({ setMode }) => {
   const dispatch = useAuthDispatch();
   const { loading, errorMessage } = useAuthState();
 
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={UserSignUpSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(async () => {
-          // console.log(JSON.stringify(values, null, 2));
-          const data = {
-            ...values,
-          };
-          const response = await signUpUser(dispatch, data);
-          if (!response.user) return;
-          Router.replace('/dashboard');
-          setSubmitting(false);
-        }, 1000);
-      }}
-    >
-      {({
-        isSubmitting, errors, values, handleChange, submitForm,
-      }) => (
-        <Form>
-          <h2>
-            Create an account
-          </h2>
-          {
-            errorMessage ? (
-              <p styles={{ color: THEME.colors.error.main }}>
-                {errorMessage}
-              </p>
-            ) : null
-          }
-          <InputFieldContainer>
-            <InputField
-              label="First name"
-              id="firstName"
-              name="firstName"
-              type="text"
-              value={values.firstName}
-              setValue={handleChange}
-              error={errors.firstName}
-              errorColor={THEME.colors.error.main}
-            />
-          </InputFieldContainer>
-
-          <InputFieldContainer>
-            <InputField
-              label="last name"
-              id="lastName"
-              name="lastName"
-              type="text"
-              value={values.lastName}
-              setValue={handleChange}
-              error={errors.lastName}
-              errorColor={THEME.colors.error.main}
-            />
-          </InputFieldContainer>
-
-          <InputFieldContainer>
-            <InputField
-              label="email"
-              id="email"
-              name="email"
-              type="email"
-              value={values.email}
-              setValue={handleChange}
-              error={errors.email}
-              errorColor={THEME.colors.error.main}
-            />
-          </InputFieldContainer>
-
-          <InputFieldContainer>
-            <InputField
-              label="phone"
-              id="phone"
-              name="phone"
-              type="phone"
-              value={values.phone}
-              setValue={handleChange}
-              error={errors.phone}
-              errorColor={THEME.colors.error.main}
-            />
-          </InputFieldContainer>
-
-          <InputFieldContainer>
-            <InputField
-              label="password"
-              id="password"
-              name="password"
-              type="password"
-              value={values.password}
-              setValue={handleChange}
-              error={errors.password}
-              errorColor={THEME.colors.error.main}
-            />
-          </InputFieldContainer>
-
-          <InputFieldContainer>
-            <InputField
-              label="confirm password"
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              value={values.confirmPassword}
-              setValue={handleChange}
-              error={errors.confirmPassword}
-              errorColor={THEME.colors.error.main}
-            />
-          </InputFieldContainer>
-
-          {
-            values.password && (
+  switch (type) {
+    case 'nav': {
+      return (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={UserSignUpSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(async () => {
+              // console.log(JSON.stringify(values, null, 2));
+              const data = {
+                ...values,
+              };
+              const response = await signUpUser(dispatch, data);
+              if (!response.user) return;
+              Router.replace('/dashboard');
+              setSubmitting(false);
+            }, 1000);
+          }}
+        >
+          {({
+            isSubmitting, errors, values, handleChange, submitForm,
+          }) => (
+            <Form>
+              <h2>
+                Create an account
+              </h2>
+              {
+                errorMessage ? (
+                  <p styles={{ color: THEME.colors.error.main }}>
+                    {errorMessage}
+                  </p>
+                ) : null
+              }
               <InputFieldContainer>
-                <PasswordStrength password={values.password} />
+                <InputField
+                  label="First name"
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  value={values.firstName}
+                  setValue={handleChange}
+                  error={errors.firstName}
+                  errorColor={THEME.colors.error.main}
+                />
               </InputFieldContainer>
-            )
-          }
 
-          <ButtonContainer>
-            <Button
-              disabled={isSubmitting && loading}
-              onClick={submitForm}
-              type="primary"
-              className="signup-button"
-              text={isSubmitting ? 'Signing up...' : 'Sign up'}
-            />
-          </ButtonContainer>
+              <InputFieldContainer>
+                <InputField
+                  label="last name"
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={values.lastName}
+                  setValue={handleChange}
+                  error={errors.lastName}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
 
-          <p>
-            Have have an account? Click
-            {' '}
-            <Button
-              text="here"
-              type="default"
-              onClick={() => setMode((currentStatus) => ({
-                ...currentStatus,
-                open: true,
-                mode: 'login',
-              }))}
-            />
-            {' '}
-            to login
-          </p>
-        </Form>
-      )}
-    </Formik>
-  );
+              <InputFieldContainer>
+                <InputField
+                  label="email"
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={values.email}
+                  setValue={handleChange}
+                  error={errors.email}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              <InputFieldContainer>
+                <InputField
+                  label="phone"
+                  id="phone"
+                  name="phone"
+                  type="phone"
+                  value={values.phone}
+                  setValue={handleChange}
+                  error={errors.phone}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              <InputFieldContainer>
+                <InputField
+                  label="password"
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={values.password}
+                  setValue={handleChange}
+                  error={errors.password}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              <InputFieldContainer>
+                <InputField
+                  label="confirm password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  value={values.confirmPassword}
+                  setValue={handleChange}
+                  error={errors.confirmPassword}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              {
+                values.password && (
+                  <InputFieldContainer>
+                    <PasswordStrength password={values.password} />
+                  </InputFieldContainer>
+                )
+              }
+
+              <ButtonContainer>
+                <Button
+                  disabled={isSubmitting && loading}
+                  onClick={submitForm}
+                  type="primary"
+                  className="signup-button"
+                  text={isSubmitting ? 'Signing up...' : 'Sign up'}
+                />
+              </ButtonContainer>
+
+              <p>
+                Have have an account? Click
+                {' '}
+                <Button
+                  text="here"
+                  type="default"
+                  onClick={() => setMode((currentStatus) => ({
+                    ...currentStatus,
+                    open: true,
+                    mode: 'login',
+                  }))}
+                />
+                {' '}
+                to login
+              </p>
+            </Form>
+          )}
+        </Formik>
+      );
+    }
+
+    case 'booking': {
+      return (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={UserSignUpSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(async () => {
+              // console.log(JSON.stringify(values, null, 2));
+              const data = {
+                ...values,
+              };
+              const response = await signUpUser(dispatch, data);
+              if (response.user) {
+                closeModal();
+              }
+              setSubmitting(false);
+            }, 1000);
+          }}
+        >
+          {({
+            isSubmitting, errors, values, handleChange, submitForm,
+          }) => (
+            <Form>
+              <h2>
+                Sign up to continue your booking!
+              </h2>
+              {
+                errorMessage ? (
+                  <p styles={{ color: THEME.colors.error.main }}>
+                    {errorMessage}
+                  </p>
+                ) : null
+              }
+              <InputFieldContainer>
+                <InputField
+                  label="First name"
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  value={values.firstName}
+                  setValue={handleChange}
+                  error={errors.firstName}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              <InputFieldContainer>
+                <InputField
+                  label="last name"
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={values.lastName}
+                  setValue={handleChange}
+                  error={errors.lastName}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              <InputFieldContainer>
+                <InputField
+                  label="email"
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={values.email}
+                  setValue={handleChange}
+                  error={errors.email}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              <InputFieldContainer>
+                <InputField
+                  label="phone"
+                  id="phone"
+                  name="phone"
+                  type="phone"
+                  value={values.phone}
+                  setValue={handleChange}
+                  error={errors.phone}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              <InputFieldContainer>
+                <InputField
+                  label="password"
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={values.password}
+                  setValue={handleChange}
+                  error={errors.password}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              <InputFieldContainer>
+                <InputField
+                  label="confirm password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  value={values.confirmPassword}
+                  setValue={handleChange}
+                  error={errors.confirmPassword}
+                  errorColor={THEME.colors.error.main}
+                />
+              </InputFieldContainer>
+
+              {
+                values.password && (
+                  <InputFieldContainer>
+                    <PasswordStrength password={values.password} />
+                  </InputFieldContainer>
+                )
+              }
+
+              <ButtonContainer>
+                <Button
+                  disabled={isSubmitting && loading}
+                  onClick={submitForm}
+                  type="primary"
+                  className="signup-button"
+                  text={isSubmitting ? 'Signing up...' : 'Sign up'}
+                />
+              </ButtonContainer>
+
+              <ButtonContainer>
+                <Button
+                  onClick={closeModal}
+                  type="secondary"
+                  className="signup-button"
+                  text={'Proceed without creating an account'}
+                />
+              </ButtonContainer>
+            </Form>
+          )}
+        </Formik>
+      );
+    }
+
+    default: return null;
+  }
+};
+
+SignupForm.defaultProps = {
+  closeModal: () => null,
 };
 
 SignupForm.propTypes = {
   setMode: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
+  closeModal: PropTypes.func,
 };
 
 export default SignupForm;

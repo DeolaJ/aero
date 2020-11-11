@@ -19,7 +19,11 @@ const CheckStatusWrapper = styled.div`
 `;
 
 const CheckStatus = () => {
-  const [status, setStatus] = useState('');
+  const [reference, setReference] = useState('');
+
+  const checkbooking = () => {
+    // check booking with reference number
+  };
 
   return (
     <CheckStatusWrapper>
@@ -28,13 +32,14 @@ const CheckStatus = () => {
           label="Check booking status"
           id="check-status"
           type="text"
-          value={status}
+          value={reference}
           placeholder="Enter reference number"
-          setValue={setStatus}
+          setValue={setReference}
         />
         <Button
-          type="primary"
-          text="Proceed"
+          type="secondary"
+          text="Check Status"
+          onClick={checkbooking}
         />
       </HorList>
     </CheckStatusWrapper>

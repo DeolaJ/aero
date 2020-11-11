@@ -64,6 +64,11 @@ const Booking = () => {
   const [arrivalDate, setArrivalDate] = useState(new Date());
   const [departureDate, setDepartureDate] = useState(new Date());
 
+  const proceedToBook = () => {
+    // if user, route to the booking page
+    // if not user, Route to the Booking page and load the signup modal
+  };
+
   return (
     <BookingSeatWrapper>
       <HorList leftStart spacing={16}>
@@ -155,8 +160,9 @@ const Booking = () => {
         </HorList>
       </BookingSeatForm>
       <Button
-        type="primary"
+        type="secondary"
         text="Proceed"
+        onClick={proceedToBook}
       />
     </BookingSeatWrapper>
   );

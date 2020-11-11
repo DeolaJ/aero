@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Section from '../section';
 import ContentCarousel from '../content-carousel';
 import ListItem from '../list-item';
+import HorList from '../../partials/horizontal-list';
 import LogoSection from '../logo-section';
 
 const TrustSectionWrapper = styled.div`
@@ -12,9 +13,7 @@ const TrustSectionContentWrapper = styled.div`
   display: none;
 
   @media (min-width: 768px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    display: block;
   }
 `;
 
@@ -29,42 +28,40 @@ const TrustSection = () => {
   const contentList = [
     {
       id: 1,
-      title: 'Random',
-      text: 'lorem ipsum jfos odis osidfs oin osndosd oinson',
+      author: 'Alexandra Dias',
+      text: 'I sent my old piano to my grandson from Nashville to California for a very funny price. The musical instrument was delivered just on time and in pristine condition.',
     },
     {
       id: 2,
-      title: 'Random',
-      text: 'lorem ipsum jfos odis osidfs oin osndosd oinson',
-    },
-    {
-      id: 3,
-      title: 'Random',
-      text: 'lorem ipsum jfos odis osidfs oin osndosd oinson',
+      author: 'Corey Davis',
+      text: 'I was glad to receive the set of ancient Italian dishes that my bro sent me. I was really surprised with the entire level of service. Thank you so much!',
     },
   ];
 
   return (
     <TrustSectionWrapper>
       <Section
-        title="Why us?"
+        title="What our clients say about us"
+        subTitle="Testimonials"
       >
         <TrustSectionContentWrapper>
-          {
-            contentList.map((content) => (
-              <ListItem
-                key={content.id}
-                type="trust"
-                content={content}
-              />
-            ))
-          }
+          <HorList>
+            {
+              contentList.map((content) => (
+                <ListItem
+                  key={content.id}
+                  type="trust"
+                  content={content}
+                />
+              ))
+            }
+          </HorList>
         </TrustSectionContentWrapper>
         <TrustSectionContentMobile>
           <ContentCarousel
             items={contentList}
             resultsPerView={1}
-            type="header"
+            type="trust"
           />
         </TrustSectionContentMobile>
         <LogoSection />

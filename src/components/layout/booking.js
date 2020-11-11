@@ -3,21 +3,24 @@ import styled from '@emotion/styled';
 import Section from '../section';
 import HorList from '../../partials/horizontal-list';
 import { ButtonText } from '../button';
-import BookSeat from '../book-seat';
-import HireBus from '../hire-bus';
-import CheckStatus from '../check-status';
-import THEME from '../../constants';
+import FlightBookings from './flight-bookings';
+import BusBookings from './bus-bookings';
 
 const BookingWrapper = styled.div`
-  margin-top: -4rem;
+  margin-top: 3rem;
   padding: 0;
+
+  > div {
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
 
   > section {
     padding: 2rem 1rem;
   }
 
   @media (min-width: 768px) {
-    margin-top: -9rem;
+    margin-top: -13rem;
     padding: 4rem;
 
     > section {
@@ -29,114 +32,59 @@ const BookingWrapper = styled.div`
   h3 {
     margin-top: 0;
   }
-
-
 `;
 
-const BookingTabButton = styled(ButtonText)`
+const SectionButton = styled(ButtonText)`
   text-transform: uppercase;
-  font-size: 1.125rem;
-  padding: 1rem .3rem;
+  font-weight: 700;
 
   ${(props) => (props.active && `
-    border-bottom: 4px solid ${THEME.colors.brand.rose};
+    opacity: .8;
   `)}
 
   @media (min-width: 768px) {
-    flex: 0 0 30%;
+    font-size: 1.25rem;
     padding: 1rem 2rem;
   }
 `;
 
-const BookingBody = styled.div`
-  width: 100%;
-  margin: 1.5rem 0;
-  display: block;
-
-  > * + * {
-    margin-top: 1rem;
-  }
-  
-  @media (min-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    > * + * {
-      margin-top: 0;
-      margin-left: 1rem;
-    }
-  }
-`;
-
 const Booking = () => {
-  const [tab, setTab] = useState('book-seat');
+  const [section, setSection] = useState('flight');
 
   return (
-    <BookingWrapper>
+    <BookingWrapper className="bookings">
+      <HorList spacing={20}>
+        <SectionButton
+          type={section === 'flight' ? 'primary' : 'secondary'}
+          onClick={() => (setSection('flight'))}
+          active={section === 'flight'}
+        >
+          Book flights
+        </SectionButton>
+        <SectionButton
+          type={section === 'bus' ? 'primary' : 'secondary'}
+          onClick={() => (setSection('bus'))}
+          active={section === 'bus'}
+        >
+          Book a bus
+        </SectionButton>
+      </HorList>
       <Section
         backgroundColor="white"
       >
         <h3>
           Book your next remote journey
         </h3>
-        <HorList>
-          <BookingTabButton
-            type="default"
-            onClick={() => (setTab('book-seat'))}
-            active={tab === 'book-seat'}
-          >
-            <span className="mobile">
-              Book
-            </span>
-            <span className="hide-on-mobile">
-              Book a seat
-            </span>
-          </BookingTabButton>
-          <BookingTabButton
-            type="default"
-            onClick={() => (setTab('hire-bus'))}
-            active={tab === 'hire-bus'}
-          >
-            <span className="mobile">
-              Hire
-            </span>
-            <span className="hide-on-mobile">
-              Hire a bus
-            </span>
-          </BookingTabButton>
-          <BookingTabButton
-            type="default"
-            onClick={() => (setTab('check-status'))}
-            active={tab === 'check-status'}
-          >
-            <span className="mobile">
-              Status
-            </span>
-            <span className="hide-on-mobile">
-              Booking status
-            </span>
-          </BookingTabButton>
-        </HorList>
-        <BookingBody>
-          {
-            tab === 'book-seat' && (
-              <BookSeat />
-            )
-          }
-
-          {
-            tab === 'hire-bus' && (
-              <HireBus />
-            )
-          }
-
-          {
-            tab === 'check-status' && (
-              <CheckStatus />
-            )
-          }
-        </BookingBody>
+        {
+          section === 'flight' && (
+            <FlightBookings />
+          )
+        }
+        {
+          section === 'bus' && (
+            <BusBookings />
+          )
+        }
       </Section>
     </BookingWrapper>
   );

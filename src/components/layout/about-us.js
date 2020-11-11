@@ -1,28 +1,24 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Section from '../section';
-import ContentCarousel from '../content-carousel';
 import ListItem from '../list-item';
-import { Button } from '../button';
+import HorList from '../../partials/horizontal-list';
+import THEME from '../../constants';
 
 const AboutUsWrapper = styled.div`
 `;
 
 const AboutUsContentWrapper = styled.div`
-  display: none;
 
-  @media (min-width: 768px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  > div {
+    justify-content: center;
   }
-`;
-
-const AboutUsContentMobile = styled.div`
 
   @media (min-width: 768px) {
-    display: none;
+
+    > div {
+      justify-content: space-between;
+    }
   }
 `;
 
@@ -30,23 +26,27 @@ const AboutUs = () => {
   const contentList = [
     {
       id: 1,
-      title: 'Random',
-      text: 'lorem ipsum jfos odis osidfs oin osndosd oinson',
+      imageLink: '/images/star.svg',
+      title: 'Any Location',
+      text: 'Messengers carry many items, from things that could not be sent by digital means .',
     },
     {
       id: 2,
-      title: 'Random',
-      text: 'lorem ipsum jfos odis osidfs oin osndosd oinson',
+      imageLink: '/images/phone.svg',
+      title: 'Kind Support',
+      text: 'We make our customers, employees and investors more successful.',
     },
     {
       id: 3,
-      title: 'Random',
-      text: 'lorem ipsum jfos odis osidfs oin osndosd oinson',
+      imageLink: '/images/timer.svg',
+      title: '24/7 Just for You',
+      text: 'Our team delivers your packages and documents 24 hours a day.',
     },
     {
       id: 4,
-      title: 'Random',
-      text: 'lorem ipsum jfos odis osidfs oin osndosd oinson',
+      imageLink: '/images/delivery.svg',
+      title: 'Delivery in 60min',
+      text: 'If we fail to deliver your parcel just in time, we will do this at no charge.',
     },
   ];
 
@@ -54,38 +54,35 @@ const AboutUs = () => {
     <AboutUsWrapper>
       <Section
         miniHeader
-        title="Special title"
-        subTitle="This is a random subtitle"
+        title="Why us"
+        subTitle="Our benefits"
+        backgroundColor={THEME.colors.brand.baby_blue}
       >
         <AboutUsContentWrapper>
-          {
-            contentList.map((content) => (
-              <ListItem
-                key={content.id}
-                type="header"
-                content={content}
-              />
-            ))
-          }
+          <p>
+            Why using our delivery services? We guarantee that your sending
+            {' '}
+            will be delivered safely and in time to any point of our planet. Our delivery
+            {' '}
+            company built thousands of depots in dozens of countries all around the Globe to provide
+            {' '}
+            our clients with high-quality international delivery services.
+          </p>
+          <HorList spacing={40} wrapList={600}>
+            {
+              contentList.map((content) => (
+                <ListItem
+                  key={content.id}
+                  type="about-us"
+                  content={content}
+                />
+              ))
+            }
+          </HorList>
         </AboutUsContentWrapper>
-        <AboutUsContentMobile>
-          <ContentCarousel
-            items={contentList}
-            resultsPerView={1}
-            type="header"
-          />
-        </AboutUsContentMobile>
-        <Button
-          type="primary"
-          text="Search for flight"
-        />
       </Section>
     </AboutUsWrapper>
   );
-};
-
-AboutUs.propTypes = {
-
 };
 
 export default AboutUs;

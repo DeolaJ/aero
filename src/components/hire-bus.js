@@ -68,6 +68,11 @@ const HireBus = () => {
   const [arrivalDate, setArrivalDate] = useState(new Date());
   const [departureDate, setDepartureDate] = useState(new Date());
 
+  const proceedToBook = () => {
+    // if user, route to the booking page
+    // if not user, Route to the Booking page and load the signup modal
+  };
+
   return (
     <HireBusWrapper>
       <HorList leftStart spacing={16}>
@@ -156,8 +161,9 @@ const HireBus = () => {
         </HorList>
       </HireBusForm>
       <Button
-        type="primary"
+        type="secondary"
         text="Proceed"
+        onClick={proceedToBook}
       />
     </HireBusWrapper>
   );

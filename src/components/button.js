@@ -46,6 +46,12 @@ export const ButtonText = styled.button`
     }
   `)}
 
+  ${(props) => (props.size === 'large' && `
+    font-size: 1.25rem;
+    letter-spacing: 0.02rem;
+    padding: 1.25rem 2.5rem;
+  `)}
+
   &:hover {
     box-shadow: none;
   }
@@ -71,24 +77,43 @@ export const ButtonIcon = styled.button`
   opacity: ${(props) => (props.disabled && '.5')};
   pointer-events: ${(props) => (props.disabled && 'none')};
   outline: none;
+
+  ${(props) => (props.size === 'large' && `
+    
+    img {
+      width: 30px;
+    }
+  `)}
 `;
 
 // eslint-disable-next-line max-lines-per-function
 export const Button = ({
-  type, text, icon, iconLink, onClick, disabled, className,
+  type, text, icon, iconLink, onClick, disabled, className, size,
 }) => {
   switch (type) {
     case 'primary':
     case 'secondary':
     case 'default': return (
-      <ButtonText type={type} onClick={onClick} disabled={disabled} className={className}>
+      <ButtonText
+        type={type}
+        onClick={onClick}
+        disabled={disabled}
+        className={className}
+        size={size}
+      >
         {text}
       </ButtonText>
     );
 
     case 'primary icon':
     case 'secondary icon': return (
-      <ButtonTextIcon type={type} onClick={onClick} disabled={disabled} className={className}>
+      <ButtonTextIcon
+        type={type}
+        onClick={onClick}
+        disabled={disabled}
+        className={className}
+        size={size}
+      >
         {
           icon && (
             <img src={iconLink} alt="button icon" />
@@ -101,7 +126,13 @@ export const Button = ({
     );
 
     case 'icon': return (
-      <ButtonIcon onClick={onClick} disabled={disabled} aria-label={text} className={className}>
+      <ButtonIcon
+        onClick={onClick}
+        disabled={disabled}
+        aria-label={text}
+        className={className}
+        size={size}
+      >
         <img src={iconLink} alt="button icon" />
       </ButtonIcon>
     );
@@ -117,6 +148,7 @@ Button.defaultProps = {
   onClick: () => null,
   disabled: false,
   className: '',
+  size: '',
 };
 
 Button.propTypes = {
@@ -127,6 +159,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   className: PropTypes.string,
+  size: PropTypes.string,
 };
 
 export default {

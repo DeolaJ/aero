@@ -9,6 +9,7 @@ const ListBlock = styled.div`
   border: ${(props) => (props.border ? props.border : null)};
   display: flex;
   justify-content: ${(props) => (props.leftStart ? 'flex-start' : 'space-between')};
+  justify-content: ${(props) => (props.rightEnd ? 'flex-end' : null)};
   align-items: ${(props) => (props.top ? 'flex-start' : 'center')};
   align-items: ${(props) => (props.bottom ? 'flex-end' : null)};
 
@@ -35,7 +36,7 @@ const ListBlock = styled.div`
 
 const HorList = ({
   direction, children, spacing, background, border, sticky, stickyTop,
-  top, leftStart, wrapList, bottom,
+  top, leftStart, wrapList, bottom, rightEnd,
 }) => (
   <ListBlock
     direction={direction}
@@ -48,6 +49,7 @@ const HorList = ({
     leftStart={leftStart}
     wrapList={wrapList}
     bottom={bottom}
+    rightEnd={rightEnd}
   >
     {children}
   </ListBlock>
@@ -64,6 +66,7 @@ HorList.defaultProps = {
   leftStart: false,
   wrapList: 0,
   bottom: false,
+  rightEnd: false,
 };
 
 HorList.propTypes = {
@@ -78,6 +81,7 @@ HorList.propTypes = {
   leftStart: PropTypes.bool,
   wrapList: PropTypes.number,
   bottom: PropTypes.bool,
+  rightEnd: PropTypes.bool,
 };
 
 export default HorList;

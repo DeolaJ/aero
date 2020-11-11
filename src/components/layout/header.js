@@ -7,8 +7,16 @@ import { Button } from '../button';
 const HeaderWrapper = styled.div`
 
   > section {
-    padding-top: 8rem;
+    padding-top: 9rem;
     padding-bottom: 10rem;
+  }
+
+  @media (min-width: 768px) {
+
+    > section {
+      padding-top: 8rem;
+      padding-bottom: 16rem;
+    }
   }
 `;
 

@@ -1,96 +1,123 @@
 import React from 'react';
-// import { Link } from 'next/link';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import { Button } from './button';
+import THEME from '../constants';
+import HorList from '../partials/horizontal-list';
 
 const ContentWrapper = styled.article`
+  ${(props) => (props.type === 'trust' && `
+    box-shadow: 0px 10px 34px 0px rgba(0, 23, 44, 0.1);
+    padding: .875rem;
+    border-radius: 1rem;
+  `)}
 
+  ${(props) => (props.type === 'deals' && `
+    box-shadow: 0px 4px 11px 0px rgba(0, 23, 44, 0.1);
+    border-radius: 3px;
+    max-width: 350px;
+
+    img {
+      width: 100%;
+    }
+
+    + article {
+      margin-top: 2rem;
+    }
+  `)}
+`;
+
+const ContentImageWrapper = styled.div`
+  padding: 1.2rem;
+  border-radius: 50%;
+  display: inline-block;
+  text-align: center;
+  background-color: white;
 `;
 
 const ContentTitle = styled.h4`
-
+  color: ${THEME.colors.grey[600]}
 `;
 
-const ContentNumber = styled.div`
-
+const ContentAuthor = styled.p`
+  text-align: right;
+  margin-bottom: 0;
 `;
 
 const ContentDescription = styled.p`
-
+  color: ${THEME.colors.grey[800]}
 `;
 
 const ContentImage = styled.img`
-
+  width: 50px;
 `;
 
-const ContentSubtext = styled.p`
-  font-style: italic;
+const ContentBodyWrapper = styled.div`
+  padding: 1.5rem;
+  background-color: white;
 `;
-
-const ContentButton = styled.button``;
 
 const ListItem = ({
   type, content,
 }) => {
   switch (type) {
-    case 'header': {
+    case 'about-us': {
       return (
         <ContentWrapper>
-          <ContentNumber>
-            dfkndnkf
-          </ContentNumber>
+          <ContentImageWrapper>
+            <ContentImage src={content.imageLink} alt={content.title} />
+          </ContentImageWrapper>
           <ContentTitle>
-            {content && content.title}
+            {content.title}
           </ContentTitle>
           <ContentDescription>
-            {content && content.text}
+            {content.text}
           </ContentDescription>
-          <ContentSubtext>
-            jfdodifoif
-          </ContentSubtext>
-          <ContentButton>
-            Here
-          </ContentButton>
         </ContentWrapper>
       );
     }
 
-    case 'howto': {
+    case 'deals': {
+      const scrollToBooking = () => {
+        if (typeof window !== 'undefined') {
+          // eslint-disable-next-line no-undef
+          const booking = document.querySelector('.bookings');
+          booking.scrollIntoView({
+            behavior: 'smooth',
+          });
+        }
+      };
       return (
-        <ContentWrapper>
-          <ContentImage src="" alt="" />
-          <ContentTitle>
-            {content && content.title}
-          </ContentTitle>
-          <ContentDescription>
-            {content && content.text}
-          </ContentDescription>
-          <ContentSubtext>
-            jfdodifoif
-          </ContentSubtext>
-          <ContentButton>
-            Here
-          </ContentButton>
+        <ContentWrapper type={type}>
+          <ContentImage src={content.imageLink} alt={content.text} />
+          <ContentBodyWrapper>
+            <HorList>
+              <ContentDescription>
+                {content.text}
+              </ContentDescription>
+              <Button
+                type="secondary"
+                text="Book now"
+                onClick={scrollToBooking}
+              />
+            </HorList>
+          </ContentBodyWrapper>
         </ContentWrapper>
       );
     }
 
     case 'trust': {
       return (
-        <ContentWrapper>
-          <ContentImage src="" alt="" />
+        <ContentWrapper type={type}>
+          <ContentImage src="/images/quotes.svg" alt="Quotes" />
           <ContentTitle>
-            {content && content.title}
+            {content.text}
           </ContentTitle>
-          <ContentDescription>
-            {content && content.text}
-          </ContentDescription>
-          <ContentSubtext>
-            jfdodifoif
-          </ContentSubtext>
-          <ContentButton>
-            Here
-          </ContentButton>
+          <ContentAuthor>
+            <strong>
+              {content.author}
+            </strong>
+          </ContentAuthor>
         </ContentWrapper>
       );
     }

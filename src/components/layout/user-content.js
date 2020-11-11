@@ -12,9 +12,11 @@ const UserContentWrapper = styled.div`
   }
 `;
 
-const UserContent = ({
-  user,
-}) => {
+const UserContent = (
+// {
+//   user,
+// }
+) => {
   const content = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },

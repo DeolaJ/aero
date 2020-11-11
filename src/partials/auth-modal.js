@@ -59,7 +59,7 @@ const AuthModalBody = styled.div`
 `;
 
 const AuthModal = ({
-  mode, closeModal, setMode,
+  mode, closeModal, setMode, type,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -81,10 +81,21 @@ const AuthModal = ({
             onClick={closeModal}
           />
           {
-            mode === 'sign-up' ? (
-              <SignupForm setMode={setMode} />
-            ) : (
-              <LoginForm setMode={setMode} />
+            type === 'nav' && (
+              <>
+                {
+                  mode === 'sign-up' ? (
+                    <SignupForm setMode={setMode} type="nav" />
+                  ) : (
+                    <LoginForm setMode={setMode} />
+                  )
+                }
+              </>
+            )
+          }
+          {
+            type === 'booking' && (
+              <SignupForm setMode={setMode} type="booking" closeModal={closeModal} />
             )
           }
         </AuthModalBody>
@@ -97,6 +108,7 @@ AuthModal.propTypes = {
   mode: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   setMode: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default AuthModal;

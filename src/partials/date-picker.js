@@ -10,7 +10,7 @@ import isEmpty from 'lodash/isEmpty';
 const DatePickerWrapper = styled.div`
   border: 1px solid #C4C4C4;
   border-radius: 1px;
-  padding: .625rem 1.75rem;
+  padding: .625rem 1rem;
   font-size: .75rem;
   line-height: 1rem;
   color: #252525;
